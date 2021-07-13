@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+</head>
+<body>
+
+<h1>Список продуктов</h1>
+
+{% for p in ps %}
+{{p.name}}
+{{p.description}}
+{{p.price}}
+<a href="{%url 'order_create' p.name %}">Заказать</a><br>
+{% endfor %}
+
+</body>
+</html>
