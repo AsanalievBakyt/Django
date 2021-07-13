@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories page</title>
+</head>
+<body>
+{% for i in cats %}
+<a href="{% url 'category_products' i.name %}"> {{ i.name }}</a>
+{%endfor%}
+</body>
+</html>
