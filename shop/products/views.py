@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Product, Category, Order
-from .forms import ProductForm, OrdersForm
+from .forms import ProductForm, OrdersForm, RegisterForm
 from django.http import HttpResponse
 
 
@@ -43,3 +43,23 @@ def order_create(request,product_name):
             form.save()
         return HttpResponse(f'Заказ оформлен')
     return render(request, 'order_create.html', context={'form': form})
+
+def confirm_order(request, order_id):
+    order = Order.objects.get(id=order_id)
+    if request.method == 'POST':
+        order.status = 'closed'
+        order.product.quantity -= 1
+        order.product.save()
+        order.save()
+        return redirect('my_orders')
+    return render(request, 'confirm_order.html')
+
+def user_registr(request):
+    form = RegisterForm()
+    if request.method =='POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(f'Регистрация прошла успешно')
+    return render(request,'registration.html', context={'form':form})
+
