@@ -24,6 +24,8 @@ urlpatterns = [
     path('category/', category_list, name='categories'),
     path('category/<str:category_name>/', category_products, name= 'category_products'),
     path('product_create/', product_post),
-    path('my_orders/',my_orders),
-    path('order_create/<str:product_name>/', order_create, name = 'order_create')
+    path('my_orders/',my_orders, name= 'my_orders'),
+    path('order_create/<str:product_name>/', order_create, name = 'order_create'),
+    path('confirm_order/<int:order_id>/',confirm_order, name= 'confirm_order'),
+    path('registration/', user_registr)
 ]
