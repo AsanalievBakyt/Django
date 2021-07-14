@@ -9,6 +9,10 @@
 {{i.product}}
 {{i.status}}
 {{i.date}}
+{% if i.status == "in_process" %}
+<a href="{% url 'confirm_order' i.id %}">Завершить заказ</a>
+{% endif %}
+<br>
 {%endfor%}
 </body>
 </html>
