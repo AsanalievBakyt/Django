@@ -18,7 +18,7 @@ class Product(models.Model):
     description = models.TextField(verbose_name='Описание')
     price = models.IntegerField(validators=[validators.MaxValueValidator(400000), validators.MinValueValidator(1000)],verbose_name='цена')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null= True, verbose_name='Категория')
-    quantity = models.IntegerField(default=10, verbose_name= 'Кол-во на скаладе')
+    quantity = models.IntegerField(validators=[validators.MinValueValidator(0)], default=10, verbose_name= 'Кол-во на скаладе')
 
 
     def __str__(self):
