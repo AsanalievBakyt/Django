@@ -12,7 +12,11 @@
 {{p.name}}
 {{p.description}}
 {{p.price}}
+{% if p.quantity %}
 <a href="{%url 'order_create' p.name %}">Заказать</a><br>
+{% else %}
+<p>Уведомить о поступлении</p>
+{% endif %}
 {% endfor %}
 
 </body>
