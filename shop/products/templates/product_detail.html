@@ -1,0 +1,9 @@
+<img src="{{ p.photo.url }}" width="700" height="400"
+<p>{{p.name}}</p>
+<p>{{p.description}}</p>
+<p>{{p.price}}</p>
+<p>{{p.category.name}}</p>
+{% if request.user.is_superuser %}
+<a href="{% url 'product_update' p.id %}">Update_product</a>
+<a href="{% url 'product_delete' p.id %}">Delete_product</a>
+{% endif %}
