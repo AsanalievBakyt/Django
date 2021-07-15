@@ -9,8 +9,9 @@
 <h1>Список продуктов</h1>
 
 {% for p in ps %}
+<a href="{% url 'product_detail' p.id %}"><img src="{{ p.photo.url }}" height="300" width="300" ></a>
+{{ p.id }}
 {{p.name}}
-{{p.description}}
 {{p.price}}
 {% if p.quantity %}
 <a href="{%url 'order_create' p.name %}">Заказать</a><br>
