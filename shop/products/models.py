@@ -19,7 +19,7 @@ class Product(models.Model):
     price = models.IntegerField(validators=[validators.MaxValueValidator(400000), validators.MinValueValidator(1000)],verbose_name='цена')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null= True, verbose_name='Категория')
     quantity = models.IntegerField(validators=[validators.MinValueValidator(0)], default=10, verbose_name= 'Кол-во на скаладе')
-
+    photo = models.ImageField(default='car_default.jpeg')
 
     def __str__(self):
         return self.name
