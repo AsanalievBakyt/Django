@@ -63,3 +63,23 @@ def user_registr(request):
             return HttpResponse(f'Регистрация прошла успешно')
     return render(request,'registration.html', context={'form':form})
 
+def product_detail(request, product_id):
+    product = Product.objects.get(id=product_id)
+    return render(request, 'product_detail.html',context={'p': product})
+
+def product_update(request, product_id):
+    product = Product.objects.get(id=product_id)
+    form = ProductForm(instance=product)
+    if request.method == 'POST':
+        form = ProductForm(request.POST,request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('product_detail', product_id)
+    return render(request,'create_product.html', context={'form': form})
+
+def delete_product(request, product_id):
+    product = Product.objects.get(id=product_id)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('home')
+    return render(request,'product_delete.html',context={'p': product})
