@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Product, Category, Order
 from .forms import ProductForm, OrdersForm, RegisterForm
 from django.http import HttpResponse
+from .services import use_promo
 
 
 def homepage(request):
@@ -40,6 +41,13 @@ def order_create(request,product_name):
     if request.method == 'POST':
         form = OrdersForm(request.POST, initial={'user': request.user})
         if form.is_valid():
+            price = form.instance.product.price
+            promo = form.cleaned_data.get('promo')
+            if promo:
+                total = use_promo(promo,price)
+            else:
+                total = price
+            form.instance.total = total
             form.save()
         return HttpResponse(f'Заказ оформлен')
     return render(request, 'order_create.html', context={'form': form})
@@ -82,4 +90,5 @@ def delete_product(request, product_id):
     if request.method == 'POST':
         product.delete()
         return redirect('home')
-    return render(request,'product_delete.html',context={'p': product})
+    return render(request, 'product_delete.html', context={'p': product})
+
