@@ -39,3 +39,13 @@ class Order(models.Model):
 ),max_length = 20, default='in_process'
     )
     date = models.DateTimeField(auto_now_add=True)
+    promo = models.CharField(max_length=6, validators=[validators.MinLengthValidator(6)], null=True, blank=True)
+    total = models.IntegerField(default=0)
+
+class Promo(models.Model):
+    code = models.CharField(max_length=6, validators=[validators.MinLengthValidator(6)], unique=True)
+    status = models.CharField(choices=(
+        ('active', 'active'),
+        ('dead', 'dead')
+    ),max_length=20, default='active')
+    sale = models.PositiveIntegerField(validators=[validators.MaxValueValidator(50)], default=10)
