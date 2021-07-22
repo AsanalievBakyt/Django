@@ -15,7 +15,7 @@ class OrdersForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ['product', 'user']
+        fields = ['product', 'user', 'promo']
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
