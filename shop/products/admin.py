@@ -17,4 +17,5 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ['date']
 
 admin.site.register(Order,OrderAdmin)
+admin.site.register(Promo)
 
