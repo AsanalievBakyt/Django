@@ -13,9 +13,14 @@ admin.site.register(Category)
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['product','user', 'status', 'date']
-    readonly_fields = ['date']
+    list_display = ['product','user', 'status', 'date', 'total']
+    readonly_fields = ['date', 'date_updated']
 
 admin.site.register(Order,OrderAdmin)
 admin.site.register(Promo)
+
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['user', 'product', 'text', 'date_created']
+    readonly_fields = ['user', 'product', 'text', 'date_created']
+admin.site.register(Review,ReviewAdmin)
 
