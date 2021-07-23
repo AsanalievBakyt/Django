@@ -41,6 +41,7 @@ class Order(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     promo = models.CharField(max_length=6, validators=[validators.MinLengthValidator(6)], null=True, blank=True)
     total = models.IntegerField(default=0)
+    date_updated = models.DateTimeField(auto_now=True, blank=True,null=True)
 
 class Promo(models.Model):
     code = models.CharField(max_length=6, validators=[validators.MinLengthValidator(6)], unique=True)
@@ -49,3 +50,9 @@ class Promo(models.Model):
         ('dead', 'dead')
     ),max_length=20, default='active')
     sale = models.PositiveIntegerField(validators=[validators.MaxValueValidator(50)], default=10)
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    text = models.CharField(max_length=255, validators=[validators.MaxLengthValidator(1)])
+    date_created = models.DateTimeField(auto_now_add=True)
