@@ -1,0 +1,13 @@
+<form method="POST">
+  {% csrf_token %}
+  <p>Are you sure you want to delete order with {{o.id}} and {{o.product.name}} </p>
+  <input type="submit" name="Yes" value = 'YES'>
+  <a href="url 'my_orders'">Back</a>
+
+
+
+
+
+
+
+</form>
