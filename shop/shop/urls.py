@@ -32,5 +32,8 @@ urlpatterns = [
     path('registration/', user_registr),
     path('product/<int:product_id>/',product_detail, name='product_detail'),
     path('product_update/<int:product_id>/', product_update, name= 'product_update'),
-    path('product_delete/<int:product_id>/', delete_product, name= 'product_delete')
-] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+    path('product_delete/<int:product_id>/', delete_product, name= 'product_delete'),
+    path('order_update/<int:order_id>/', order_update, name='order_update'),
+    path('delete_order/<int:order_id>/', delete_order, name='delete_order'),
+
+    ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
