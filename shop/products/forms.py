@@ -25,3 +25,7 @@ class RegisterForm(UserCreationForm):
         fields = ['username','email','password1','password2']
 
 
+class ReviewForm(forms.Form):
+    text = forms.CharField(min_length=1, max_length=255)
+
+
