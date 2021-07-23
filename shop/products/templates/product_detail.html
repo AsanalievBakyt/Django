@@ -7,3 +7,12 @@
 <a href="{% url 'product_update' p.id %}">Update_product</a>
 <a href="{% url 'product_delete' p.id %}">Delete_product</a>
 {% endif %}
+
+{% if o %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit">
+</form>
+
+{% endif %}
