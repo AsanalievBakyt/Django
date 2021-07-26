@@ -35,5 +35,6 @@ urlpatterns = [
     path('product_delete/<int:product_id>/', delete_product, name= 'product_delete'),
     path('order_update/<int:order_id>/', order_update, name='order_update'),
     path('delete_order/<int:order_id>/', delete_order, name='delete_order'),
+    path('login/', login_page, name='login_user'),
 
     ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
