@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
@@ -130,3 +131,14 @@ def delete_order(request, order_id):
         return redirect('my_orders')
     return render(request, 'delete_order.html', context={'o': order})
 
+def login_page(request):
+    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            login(request,user)
+            return redirect('home')
+    return render(request,'login_page.html',{'form':form})
