@@ -1,4 +1,4 @@
-from  django import forms
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -28,4 +28,8 @@ class RegisterForm(UserCreationForm):
 class ReviewForm(forms.Form):
     text = forms.CharField(min_length=1, max_length=255)
 
+
+class LoginForm(forms.Form):
+    username = forms.CharField(min_length=4, max_length=30)
+    password = forms.CharField(min_length=5, max_length=16)
 
