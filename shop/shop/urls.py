@@ -36,5 +36,5 @@ urlpatterns = [
     path('order_update/<int:order_id>/', order_update, name='order_update'),
     path('delete_order/<int:order_id>/', delete_order, name='delete_order'),
     path('login/', login_page, name='login_user'),
-
+    path('activate/<str:username>/', activate_user, name='user_activate'),
     ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
