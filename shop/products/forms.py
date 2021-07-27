@@ -33,3 +33,5 @@ class LoginForm(forms.Form):
     username = forms.CharField(min_length=4, max_length=30)
     password = forms.CharField(min_length=5, max_length=16)
 
+class UserCodeForm(forms.Form):
+    code = forms.IntegerField(max_value=9999, min_value=1000)
