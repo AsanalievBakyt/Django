@@ -56,3 +56,7 @@ class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     text = models.CharField(max_length=255, validators=[validators.MaxLengthValidator(1)])
     date_created = models.DateTimeField(auto_now_add=True)
+
+class UserCode(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    code = models.IntegerField(validators=[validators.MinValueValidator(1000),validators.MaxValueValidator(9999)])
