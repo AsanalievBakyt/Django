@@ -1,4 +1,7 @@
+import random
+
 from django.contrib.auth import authenticate, login
+from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
@@ -70,11 +73,20 @@ def confirm_order(request, order_id):
     return render(request, 'confirm_order.html')
 
 def user_registr(request):
+    import random
     form = RegisterForm()
     if request.method =='POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
+            form.instance.is_active = False
             form.save()
+            code = random.randint(1000,9999)
+            UserCode.objects.create(user=form.instance, code=code)
+            recipient = form.cleaned_data.get('email')
+            subject = 'New User'
+            body = f'Welcome to our site! Your registration code is {code}'
+            e = EmailMessage(subject=subject, body=body,to=[recipient,])
+            e.send()
             return HttpResponse(f'Регистрация прошла успешно')
     return render(request,'registration.html', context={'form':form})
 
@@ -139,6 +151,23 @@ def login_page(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(username=username, password=password)
+            l = User.objects.get(username=username)
             login(request,user)
+            if not l.is_active:
+                return redirect('user_activate',username)
             return redirect('home')
     return render(request,'login_page.html',{'form':form})
+
+def activate_user(request,username):
+    user = User.objects.get(username=username)
+    form = UserCodeForm()
+    if request.method == 'POST':
+        form = UserCodeForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data.get('code')
+            user_code = UserCode.objects.filter(user=user, code=code)
+            if user_code:
+                user.is_active = True
+                user.save()
+                return redirect('login_user')
+    return render(request,'activate_user.html',context={'form':form})
