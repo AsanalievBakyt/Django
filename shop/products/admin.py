@@ -23,4 +23,5 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ['user', 'product', 'text', 'date_created']
     readonly_fields = ['user', 'product', 'text', 'date_created']
 admin.site.register(Review,ReviewAdmin)
+adadmin.site.register(UserCode)
 
